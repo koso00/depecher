@@ -134,7 +134,7 @@ ListItem {
                             currentMessageType != MessagingModel.JOINBYLINK &&
                             currentMessageType != MessagingModel.CONTACT_REGISTERED &&
                             currentMessageType != MessagingModel.CHAT_CREATED ?
-                                is_outgoing ?Theme.horizontalPageMargin * 2 : Theme.horizontalPageMargin
+                                is_outgoing ?Theme.horizontalPageMargin : Theme.horizontalPageMargin
                                                                               : 0
         anchors.left: oneAligningValue.value ? parent.left :
                                          is_outgoing ? undefined : parent.left
@@ -163,9 +163,11 @@ ListItem {
             Loader {
                 id: userAvatarLoader
                 active: index != 0
+                //asynchronous: true
                 anchors.top: contentColumn.top
                 sourceComponent: Component {
                     CircleImage {
+                        asynchronous: true
                         id: userAvatar
                         width: visible ? Theme.itemSizeExtraSmall : 0
                         source: sender_photo ? "image://depecherDb/"+sender_photo : ""
@@ -234,7 +236,7 @@ ListItem {
                 Loader {
                     id:replyLoader
                     active: reply_to_message_id != 0 && index != 0
-
+                    //asynchronous: true
                     sourceComponent: Component {
                         MouseArea {
                             id:replyBackgroundItem
@@ -286,7 +288,8 @@ ListItem {
                 Loader {
                     id:contentLoader
                     z:0
-
+                    //asynchronous: true
+                    anchors.right: is_outgoing ? parent.right : 0
                     function reload() {
                             source = ""
                             source = setItem()
@@ -378,8 +381,8 @@ ListItem {
                     }
                     Label {
                         font.pixelSize: Theme.fontSizeTiny
-                        visible: sending_state === TdlibState.Sending_Pending || sending_state === TdlibState.Sending_Failed
-                                 ||  messagingModel.chatType["type"] == TdlibState.Private || messagingModel.chatType["type"] == TdlibState.Secret
+                        visible: is_outgoing == true && (sending_state === TdlibState.Sending_Pending || sending_state === TdlibState.Sending_Failed
+                                 ||  messagingModel.chatType["type"] == TdlibState.Private || messagingModel.chatType["type"] == TdlibState.Secret)
                         text: {
                             if(sending_state == TdlibState.Sending_Pending) {
                                 return "<b>\u23F1</b>" // clock

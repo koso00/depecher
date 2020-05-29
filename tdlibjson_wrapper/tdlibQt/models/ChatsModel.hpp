@@ -42,7 +42,8 @@ class ChatsModel : public QAbstractListModel
         REPLY_MARKUP_MESSAGE_ID,
         DRAFT_MESSAGE,
         CLIENT_DATA,
-        SENDING_STATE
+        SENDING_STATE,
+        SENDING_STATE_
     };
     TdlibJsonWrapper *tdlibJson;
     void changeChatOrderOrAdd(qint64 chatId, qint64 order);

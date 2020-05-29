@@ -21,6 +21,7 @@ Column {
         key:"/apps/depecher/ui/message/fullSizeInChannels"
         defaultValue: false
     }
+
     states: [
         State {
             name: "fullSizeWithMarginCorrection"
@@ -38,10 +39,12 @@ Column {
     ]
 
 
+
     RichTextItem {
+        font.pixelSize: 40
         id: textItem
-        width: messageListItem.width * 2 / 3 - Theme.horizontalPageMargin * 2
+        width: messageListItem.width * 2 / 3 - Theme.horizontalPageMargin * 4
         content:  rich_text
-    }
+     }
 
 }

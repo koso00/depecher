@@ -24,6 +24,7 @@ Column{
 
             Image {
                 id: playIcon
+                asynchronous: true
                 fillMode: Image.PreserveAspectFit
                 source: progress.visible ? "image://theme/icon-m-clear"
                                          : file_downloading_completed ?
@@ -73,8 +74,8 @@ Column{
 
                     color: pressed ? Theme.primaryColor : Theme.secondaryColor
                     font.pixelSize: Theme.fontSizeSmall
-                    text: audio_title
-}
+                    text: audio_title == "" ? document_name : audio_title
+                }
 
                 Label {
 

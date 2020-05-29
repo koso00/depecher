@@ -437,68 +437,12 @@
 <context>
     <name>MessagingPage</name>
     <message>
-        <source>Copy text</source>
-        <translation>复制文本</translation>
-    </message>
-    <message>
-        <source>Copy path</source>
-        <translation>复制路径</translation>
-    </message>
-    <message>
-        <source>Reply</source>
-        <translation>回复</translation>
-    </message>
-    <message>
-        <source>Photo</source>
-        <translation>照片</translation>
-    </message>
-    <message>
-        <source>Sticker</source>
-        <translation>贴纸</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation>文档</translation>
-    </message>
-    <message>
-        <source>Animation</source>
-        <translation>动画</translation>
-    </message>
-    <message>
-        <source>Contact</source>
-        <translation>联系人</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation>消息</translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation>删除消息</translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation>为所有人删除此消息</translation>
-    </message>
-    <message>
-        <source>Deleting...</source>
-        <translation>删除中...</translation>
-    </message>
-    <message>
-        <source>Forward</source>
-        <translation>转发</translation>
-    </message>
-    <message>
         <source>Forwarded messages</source>
         <translation>转发消息</translation>
     </message>
     <message>
         <source>messages</source>
         <translation>消息</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation>编辑</translation>
     </message>
 </context>
 <context>
@@ -518,16 +462,12 @@
 <context>
     <name>PicturePage</name>
     <message>
-        <source>Save to gallery</source>
-        <translation>保存到图库</translation>
-    </message>
-    <message>
         <source>Image saved to gallery!</source>
         <translation>图片已保存到图库！</translation>
     </message>
     <message>
-        <source>Share function will be here soon</source>
-        <translation>可用的分享方法将在此显示</translation>
+        <source>Save to gallery</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

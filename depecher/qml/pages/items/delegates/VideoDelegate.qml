@@ -91,11 +91,12 @@ Column{
             Rectangle {
                 id:dimmedPlayColor
                 anchors.fill: image
-                opacity: 0.5
+                opacity: 0
                 color:"black"
                 visible: file_downloading_completed
             }
             Image {
+                asynchronous: true
                 id: playIcon
                 visible: file_downloading_completed
                 source:  "image://theme/icon-m-play"
@@ -116,7 +117,7 @@ Column{
                 source: progress.visible ? "image://theme/icon-s-clear-opaque-cross"
                                          : "image://theme/icon-s-update"
                 anchors.centerIn: parent
-
+                asynchronous: true
                 MouseArea {
                     enabled: parent.visible
                     anchors.fill: parent

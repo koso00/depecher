@@ -437,68 +437,12 @@
 <context>
     <name>MessagingPage</name>
     <message>
-        <source>Copy text</source>
-        <translation>Copiar texto</translation>
-    </message>
-    <message>
-        <source>Copy path</source>
-        <translation>Copiar ruta</translation>
-    </message>
-    <message>
-        <source>Reply</source>
-        <translation>Responder</translation>
-    </message>
-    <message>
-        <source>Photo</source>
-        <translation>Foto</translation>
-    </message>
-    <message>
-        <source>Sticker</source>
-        <translation>Sticker</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation>Documento</translation>
-    </message>
-    <message>
-        <source>Animation</source>
-        <translation>Animación</translation>
-    </message>
-    <message>
-        <source>Contact</source>
-        <translation>Contacto</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation>Mensaje</translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation>Borrar mensaje</translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation>Borrar para todos</translation>
-    </message>
-    <message>
-        <source>Deleting...</source>
-        <translation>Borrando...</translation>
-    </message>
-    <message>
-        <source>Forward</source>
-        <translation>Reenviar</translation>
-    </message>
-    <message>
         <source>Forwarded messages</source>
         <translation>Mensajes reenviados</translation>
     </message>
     <message>
         <source>messages</source>
         <translation>mensajes</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation>Editar</translation>
     </message>
 </context>
 <context>
@@ -518,16 +462,12 @@
 <context>
     <name>PicturePage</name>
     <message>
-        <source>Save to gallery</source>
-        <translation>Guardar en Galería</translation>
-    </message>
-    <message>
         <source>Image saved to gallery!</source>
         <translation>¡Imagen guardada en Galería!</translation>
     </message>
     <message>
-        <source>Share function will be here soon</source>
-        <translation>La función compartir estará aquí pronto</translation>
+        <source>Save to gallery</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

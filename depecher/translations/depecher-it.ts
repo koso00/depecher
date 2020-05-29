@@ -437,68 +437,12 @@
 <context>
     <name>MessagingPage</name>
     <message>
-        <source>Copy text</source>
-        <translation>Copia testo</translation>
-    </message>
-    <message>
-        <source>Copy path</source>
-        <translation>Copia link</translation>
-    </message>
-    <message>
-        <source>Reply</source>
-        <translation>Rispondi</translation>
-    </message>
-    <message>
-        <source>Photo</source>
-        <translation>Immagine</translation>
-    </message>
-    <message>
-        <source>Sticker</source>
-        <translation>Sticker</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation>Documento</translation>
-    </message>
-    <message>
-        <source>Animation</source>
-        <translation>GIF</translation>
-    </message>
-    <message>
-        <source>Contact</source>
-        <translation>Contatto</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation>Messaggio</translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation>Elimina messaggio</translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation>Elimina per tutti</translation>
-    </message>
-    <message>
-        <source>Deleting...</source>
-        <translation>Eliminazione...</translation>
-    </message>
-    <message>
-        <source>Forward</source>
-        <translation>Inoltra</translation>
-    </message>
-    <message>
         <source>Forwarded messages</source>
         <translation>Messaggi inoltrati</translation>
     </message>
     <message>
         <source>messages</source>
         <translation>messaggi</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation>Modifica</translation>
     </message>
 </context>
 <context>
@@ -518,16 +462,12 @@
 <context>
     <name>PicturePage</name>
     <message>
-        <source>Save to gallery</source>
-        <translation>Salva nella galleria</translation>
-    </message>
-    <message>
         <source>Image saved to gallery!</source>
         <translation>Immagine salvata nella galleria!</translation>
     </message>
     <message>
-        <source>Share function will be here soon</source>
-        <translation>La funzione condividi arriverà presto</translation>
+        <source>Save to gallery</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

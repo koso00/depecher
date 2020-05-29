@@ -438,67 +438,11 @@
 <context>
     <name>MessagingPage</name>
     <message>
-        <source>Copy text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copy path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reply</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Photo</source>
-        <translation type="unfinished">Kép</translation>
-    </message>
-    <message>
-        <source>Sticker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation type="unfinished">Dokumentum</translation>
-    </message>
-    <message>
-        <source>Animation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Contact</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deleting...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Forward</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Forwarded messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>messages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -519,16 +463,12 @@
 <context>
     <name>PicturePage</name>
     <message>
-        <source>Save to gallery</source>
-        <translation>Mentés a galériába</translation>
-    </message>
-    <message>
         <source>Image saved to gallery!</source>
         <translation>Kép mentve a galériába!</translation>
     </message>
     <message>
-        <source>Share function will be here soon</source>
-        <translation>Itt lezs nemsokára a megosztás funkció</translation>
+        <source>Save to gallery</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

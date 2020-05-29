@@ -39,7 +39,7 @@ Column{
                 source: file_downloading_completed ? "file://"+(content) : ""
                 autoLoad: true
                 // autoPlay: true
-                loops:  Animation.Infinite
+                //loops:  Animation.Infinite
             }
             Connections {
                 target: Qt.application
@@ -57,7 +57,7 @@ Column{
                 Rectangle {
                     id:dimmedColor
                     anchors.fill: parent
-                    opacity: 0.5
+                    opacity: 0
                     color:"black"
                 }
                 ProgressCircle {
@@ -68,11 +68,15 @@ Column{
                     value : file_is_uploading ? file_uploaded_size / file_downloaded_size :
                                                 file_downloaded_size / file_uploaded_size
                 }
-                Image {
-                    id: downloadIcon
+
+                Rectangle {
+                    height : 100
+                    width: 100
+                    radius : 50
+                    anchors.fill: parent
                     visible: !file_downloading_completed || progress.visible
-                    source: progress.visible ? "image://theme/icon-s-clear-opaque-cross"
-                                             : "image://theme/icon-s-update"
+                    opacity: 0.5
+                    color:"black"
                     anchors.centerIn: parent
                     MouseArea{
                         enabled: parent.visible
@@ -85,14 +89,23 @@ Column{
                                     messagingModel.deleteMessage(index)
                             else
                                 messagingModel.downloadDocument(index)
+                                mediaPlayer.play()
                         }
                     }
+                }
+                Image {
+                    id: downloadIcon
+                    visible: !file_downloading_completed || progress.visible
+                    source: progress.visible ? "image://theme/icon-s-clear-opaque-cross?#ffffff"
+                                             : "image://theme/icon-s-update?#ffffff"
+                    anchors.centerIn: parent
+
                 }
             }
             Rectangle {
                 id:dimmedPlayColor
                 anchors.fill: animation
-                opacity: 0.5
+                opacity: 0
                 color:"black"
                 visible: file_downloading_completed && mediaPlayer.playbackState != MediaPlayer.PlayingState
 
@@ -100,7 +113,7 @@ Column{
             Image {
                 id: playIcon
                 visible: file_downloading_completed && mediaPlayer.playbackState != MediaPlayer.PlayingState
-                source:  "image://theme/icon-m-play"
+                source:  "image://theme/icon-m-play?#ffffff"
                 anchors.centerIn: dimmedPlayColor
             }
             MouseArea{

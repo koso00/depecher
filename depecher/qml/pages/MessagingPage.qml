@@ -262,6 +262,7 @@ Page {
             }
             SilicaListView {
                 id: messageList
+                cacheBuffer : 100
                 property bool needToScroll: false
                 width: parent.width
                 height: parent.height - nameplate.height
@@ -270,9 +271,9 @@ Page {
 
                 onHeightChanged: {
                     if(messageList.indexAt(width/2,height+contentY) >= count - 2)
-{
-                        messageList.positionViewAtEnd()
-}
+                        {
+                                                messageList.positionViewAtEnd()
+                        }
                 }
                 onMovementStarted: {
                     showDateSection()
@@ -288,11 +289,11 @@ Page {
                 Connections {
                     target: messagingModel
                     onRowsInserted: {
-                    if(first == 0)
-                        for(var i = 0; i < arrayIndex.length;i ++)
-                            arrayIndex[i] = arrayIndex[i] + last + 1
-                    if(messageList.atYEnd && messageList.state !== "preparing")
-                        positionAtEndTimer.start()
+                        if(first == 0)
+                            for(var i = 0; i < arrayIndex.length;i ++)
+                                arrayIndex[i] = arrayIndex[i] + last + 1
+                        if(messageList.atYEnd && messageList.state !== "preparing")
+                            positionAtEndTimer.start()
                     }
                 }
                 topMargin:  -1 * Theme.itemSizeExtraLarge
@@ -387,7 +388,11 @@ Page {
 //                    needToScroll = indexAt(messageList.width/2,contentY + 50) > messageList.count - 8
 
                 }
-                delegate: MessageItem {
+                delegate:  Label{
+                                text: "Text"
+                            }
+
+                    /*MessageItem {
                     id: myDelegate
                     onReplyMessageClicked:    {
                         if(messagingModel.findIndexById(replied_message_index) !== -1) {
@@ -399,7 +404,7 @@ Page {
                         }/* else {
                                                                                   messagingModel.loadAndRefreshRepliedByIndex(source_message_index)
                                                                               }*/
-                    }
+                    /*}
 
                     ListView.onAdd: AddAnimation {
                         target: myDelegate
@@ -537,14 +542,14 @@ Page {
                     function showRemorseDelete() {
                         remorseDelete.execute(myDelegate, qsTr("Deleting..."), function() { messagingModel.deleteMessage(index) } )
                     }
-                }
+                }*/
 
                 Timer {
                     id:centerTimer
                     interval: 800
                     onTriggered: {
-                        messageList.positionViewAtIndex(messagingModel.lastMessageIndex + 1,ListView.Beginning)
-                        messageList.currentIndex = messagingModel.lastMessageIndex + 1
+                        /*messageList.positionViewAtIndex(messagingModel.lastMessageIndex + 1,ListView.Beginning)
+                        messageList.currentIndex = messagingModel.lastMessageIndex + 1*/
                         messagingModel.fetchOlder()
                         messageList.state = "ready"
                     }
@@ -554,7 +559,7 @@ Page {
                     interval: 500
                     repeat: false
                     onTriggered:{
-                        if(messageList.state == "ready")
+                      if(messageList.state == "ready")
                         messagingModel.fetchOlder()
                     }
                 }
@@ -562,7 +567,7 @@ Page {
                     id:positionAtEndTimer
                     interval: 500
                     repeat: false
-                    onTriggered: messageList.positionViewAtEnd()
+                    onTriggered:{} //messageList.positionViewAtEnd()
                 }
 
                 Component.onCompleted: {

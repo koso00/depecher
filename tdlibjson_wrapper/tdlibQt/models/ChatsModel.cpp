@@ -1,6 +1,8 @@
 #include "ChatsModel.hpp"
 #include <QDebug>
 #include <memory.h>
+#include <cstdlib>
+#include <ctime>
 #include "../ParseObject.hpp"
 #include "../TdlibJsonWrapper.hpp"
 #include "tdlibQt/models/singletons/UsersModel.hpp"
@@ -293,7 +295,10 @@ QVariant ChatsModel::data(const QModelIndex &index, int role) const
                    m_chats[rowIndex]->last_message_->sender_user_id_);
     case DATE:
         if (m_chats[rowIndex]->last_message_.data() != nullptr) {
-            return m_chats[rowIndex]->last_message_->date_;
+            char buff[20];
+            time_t timenum = (time_t) m_chats[rowIndex]->last_message_->date_;
+            strftime(buff, 20, "%Y-%m-%d %H:%M:%S", localtime(&timenum));
+            return buff;
         }
     case MUTE_FOR:
         if (m_chats[rowIndex]->notification_settings_.data() != nullptr) {
@@ -323,6 +328,26 @@ QVariant ChatsModel::data(const QModelIndex &index, int role) const
                 return QVariant::fromValue(tdlibQt::Enums::MessageState::Sending_Read);
             else
                 return QVariant::fromValue(tdlibQt::Enums::MessageState::Sending_Not_Read);
+        }
+
+    }
+    case SENDING_STATE_ICON: {
+        if (m_chats[rowIndex]->last_message_->sending_state_.data()) {
+            if (m_chats[rowIndex]->last_message_->sending_state_->get_id() == messageSendingStatePending::ID)
+                return "<b>\u23F1</b>";
+            if (m_chats[rowIndex]->last_message_->sending_state_->get_id() == messageSendingStateFailed::ID)
+                return "<b>\u26A0</b>";
+        }
+        if (m_chats[rowIndex]->last_message_->is_outgoing_) {
+            if (m_chats[rowIndex]->last_message_->id_ <= m_chats[rowIndex]->last_read_outbox_message_id_)
+                return "<b>\u2713\u2713</b>";
+            else
+                return "<b>\u2713</b>";
+        } else {
+            if (m_chats[rowIndex]->last_message_->id_ <= m_chats[rowIndex]->last_read_inbox_message_id_)
+                return "<b>\u2713\u2713</b>";
+            else
+                return "<b>\u2713</b>";
         }
 
     }
@@ -372,6 +397,7 @@ QHash<int, QByteArray> ChatsModel::roleNames() const
     roles[DRAFT_MESSAGE] = "draft_message";
     roles[CLIENT_DATA] = "client_data";
     roles[SENDING_STATE] = "sending_state";
+    roles[SENDING_STATE_ICON] = "sending_state_icon";
     return roles;
 }
 
@@ -526,6 +552,7 @@ void ChatsModel::updateChatReadInbox(const QJsonObject &chatReadInboxObject)
             roles.append(UNREAD_COUNT);
             roles.append(LAST_MESSAGE_INBOX_ID);
             roles.append(SENDING_STATE);
+            roles.append(SENDING_STATE_ICON);
 
             emit dataChanged(index(i), index(i), roles);
             break;
@@ -543,6 +570,7 @@ void ChatsModel::updateChatReadOutbox(const QJsonObject &chatReadOutboxObject)
             QVector<int> roles;
             roles.append(LAST_MESSAGE_OUTBOX_ID);
             roles.append(SENDING_STATE);
+            roles.append(SENDING_STATE_ICON);
             emit dataChanged(index(i), index(i), roles);
             return;
         }

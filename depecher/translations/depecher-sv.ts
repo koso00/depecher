@@ -437,68 +437,12 @@
 <context>
     <name>MessagingPage</name>
     <message>
-        <source>Copy text</source>
-        <translation>Kopiera text</translation>
-    </message>
-    <message>
-        <source>Copy path</source>
-        <translation>Kopiera sökväg</translation>
-    </message>
-    <message>
-        <source>Reply</source>
-        <translation>Svara</translation>
-    </message>
-    <message>
-        <source>Photo</source>
-        <translation>Bild</translation>
-    </message>
-    <message>
-        <source>Sticker</source>
-        <translation>Sticker</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation>Dokument</translation>
-    </message>
-    <message>
-        <source>Animation</source>
-        <translation>Animation</translation>
-    </message>
-    <message>
-        <source>Contact</source>
-        <translation>Kontakt</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation>Meddelande</translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation>Ta bort meddelande</translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation>Ta bort för alla</translation>
-    </message>
-    <message>
-        <source>Deleting...</source>
-        <translation>Tar bort...</translation>
-    </message>
-    <message>
-        <source>Forward</source>
-        <translation>Skicka</translation>
-    </message>
-    <message>
         <source>Forwarded messages</source>
         <translation>Skickade meddelanden</translation>
     </message>
     <message>
         <source>messages</source>
         <translation>meddelanden</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation>Redigera</translation>
     </message>
 </context>
 <context>
@@ -518,16 +462,12 @@
 <context>
     <name>PicturePage</name>
     <message>
-        <source>Save to gallery</source>
-        <translation>Spara i galleriet</translation>
-    </message>
-    <message>
         <source>Image saved to gallery!</source>
         <translation>Bild sparad i Galleri</translation>
     </message>
     <message>
-        <source>Share function will be here soon</source>
-        <translation>Delningsfunktion kommer snart här</translation>
+        <source>Save to gallery</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

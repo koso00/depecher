@@ -29,28 +29,37 @@ Dialog {
         id:chatsModel
     }
     SilicaListView {
+        cacheBuffer : 1000
         anchors.fill: parent
         model:chatsModel
         header:  DialogHeader {
             acceptText:  qsTr("Select chat")
         }
 
-        delegate: ChatItem {
-            id: chatDelegate
-            highlighted: id === selected_chat_id
+        delegate: Loader {
+            //asynchronous: true
+            ChatItem {
+                id: chatDelegate
+                //highlighted: id === selected_chat_id
 
-            ListView.onAdd: AddAnimation {
-                target: chatDelegate
+                /*ListView.onAdd: AddAnimation {
+                    target: chatDelegate
+                }
+
+                ListView.onRemove: RemoveAnimation {
+                    target: chatDelegate
+                }*/
+
+                onClicked: {
+                        selected_chat_id = id
+                }
             }
 
-            ListView.onRemove: RemoveAnimation {
-                target: chatDelegate
-            }
-
-            onClicked: {
-                    selected_chat_id = id
-            }
         }
+
+
+
+
     }
 
 }

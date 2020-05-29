@@ -83,6 +83,7 @@ fi
 %defattr(-,root,root,-)
 %{_bindir}
 %{_datadir}/%{name}
+%{_datadir}/%{name}/qml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/lipstick/notificationcategories/*.conf

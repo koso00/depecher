@@ -437,68 +437,12 @@
 <context>
     <name>MessagingPage</name>
     <message>
-        <source>Copy text</source>
-        <translation>Kopiere Text</translation>
-    </message>
-    <message>
-        <source>Copy path</source>
-        <translation>Kopiere Pfad</translation>
-    </message>
-    <message>
-        <source>Reply</source>
-        <translation>Antworten</translation>
-    </message>
-    <message>
-        <source>Photo</source>
-        <translation>Bild</translation>
-    </message>
-    <message>
-        <source>Sticker</source>
-        <translation>Sticker</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation>Dokument</translation>
-    </message>
-    <message>
-        <source>Animation</source>
-        <translation>Animation</translation>
-    </message>
-    <message>
-        <source>Contact</source>
-        <translation>Kontakt</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation>Nachricht</translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation>Lösche Nachricht</translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation>Lösche für jeden</translation>
-    </message>
-    <message>
-        <source>Deleting...</source>
-        <translation>Lösche...</translation>
-    </message>
-    <message>
-        <source>Forward</source>
-        <translation>Weiterleiten</translation>
-    </message>
-    <message>
         <source>Forwarded messages</source>
         <translation>Weitergeleitete Nachrichten</translation>
     </message>
     <message>
         <source>messages</source>
         <translation>Nachrichten</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation>Bearbeiten</translation>
     </message>
 </context>
 <context>
@@ -518,16 +462,12 @@
 <context>
     <name>PicturePage</name>
     <message>
-        <source>Save to gallery</source>
-        <translation>In Galerie speichern</translation>
-    </message>
-    <message>
         <source>Image saved to gallery!</source>
         <translation>Bild wurde in der Galerie gespeichert!</translation>
     </message>
     <message>
-        <source>Share function will be here soon</source>
-        <translation>Share-Funktion wird demnächst hier sein.</translation>
+        <source>Save to gallery</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
