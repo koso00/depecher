@@ -337,32 +337,20 @@
 <context>
     <name>DialogsPage</name>
     <message>
-        <source>Settings</source>
-        <translation>Einstellungen</translation>
-    </message>
-    <message>
         <source>Reset dialogs</source>
-        <translation>Dialoge zurücksetzen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unmute</source>
-        <translation>Laut stellen</translation>
-    </message>
-    <message>
-        <source>Mute</source>
-        <translation>Stumm stellen</translation>
-    </message>
-    <message>
-        <source>Mark as read</source>
-        <translation>Als gelesen markieren</translation>
-    </message>
-    <message>
-        <source>Mark as unread</source>
-        <translation>als ungelesen markieren</translation>
+        <source>Settings</source>
+        <translation type="unfinished">Einstellungen</translation>
     </message>
     <message>
         <source>Contacts</source>
-        <translation>Kontakte</translation>
+        <translation type="unfinished">Kontakte</translation>
+    </message>
+    <message>
+        <source>Telegram</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -426,12 +414,8 @@
 <context>
     <name>MessageItem</name>
     <message>
-        <source>edited</source>
-        <translation>bearbeitet</translation>
-    </message>
-    <message>
         <source>Forwarded from</source>
-        <translation>weitergeleitet von</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -443,6 +427,10 @@
     <message>
         <source>messages</source>
         <translation>Nachrichten</translation>
+    </message>
+    <message>
+        <source>Deleting...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -587,7 +575,7 @@
     <name>SelectChatDialog</name>
     <message>
         <source>Select chat</source>
-        <translation>Chat auswählen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

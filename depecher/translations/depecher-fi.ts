@@ -338,30 +338,18 @@
     <name>DialogsPage</name>
     <message>
         <source>Reset dialogs</source>
-        <translation>Palauta keskustelut</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Asetukset</translation>
-    </message>
-    <message>
-        <source>Unmute</source>
-        <translation>Poista mykistys</translation>
-    </message>
-    <message>
-        <source>Mute</source>
-        <translation>Mykistä</translation>
-    </message>
-    <message>
-        <source>Mark as read</source>
-        <translation>Merkitse luetuksi</translation>
-    </message>
-    <message>
-        <source>Mark as unread</source>
-        <translation>Merkitse lukemattomaksi</translation>
+        <translation type="unfinished">Asetukset</translation>
     </message>
     <message>
         <source>Contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telegram</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -426,13 +414,8 @@
 <context>
     <name>MessageItem</name>
     <message>
-        <source>edited</source>
-        <translation>muokattu</translation>
-    </message>
-    <message>
         <source>Forwarded from</source>
-        <translatorcomment>This could probably be translated as &quot;Forwarded from chat&quot;, now it&apos;s more general and doesn&apos;t sound that native, more like &quot;Forwarded from source&quot;</translatorcomment>
-        <translation>Välitetty lähteestä</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -444,6 +427,10 @@
     <message>
         <source>messages</source>
         <translation>viestit</translation>
+    </message>
+    <message>
+        <source>Deleting...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -590,7 +577,7 @@
     <name>SelectChatDialog</name>
     <message>
         <source>Select chat</source>
-        <translation>Valitse keskustelu</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

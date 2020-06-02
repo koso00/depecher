@@ -17,6 +17,7 @@ Page {
     property var arrayIndex: []
     property FilterChatMembersModel filterChatMembersModel: null
     property bool infoPageLoaded: false
+    property bool touched: false
 
     onStatusChanged: {
         if (!infoPageLoaded && status == PageStatus.Active) {
@@ -106,8 +107,8 @@ Page {
 
         if (Object.keys(forwardMessages).length !== 0) {
             writer.reply_id = "-1"
-        writer.replyMessageAuthor = qsTr("Forwarded messages")
-        writer.replyMessageText = forwardMessages.messages.length + " " + qsTr("messages")
+            writer.replyMessageAuthor = qsTr("Forwarded messages")
+            writer.replyMessageText = forwardMessages.messages.length + " " + qsTr("messages")
         }
         c_telegramWrapper.openChat(messagingModel.peerId)
     }
@@ -224,9 +225,9 @@ Page {
             writer.clearReplyArea()
 
         }
-    onReplyAreaCleared: {
-    forwardMessages = {}
-    }
+        onReplyAreaCleared: {
+            forwardMessages = {}
+        }
         BusyIndicator {
             id:placeholder
             running: true
@@ -235,7 +236,7 @@ Page {
         }
         Column {
             width: page.width
-//            height: parent.height - writer.sendAreaHeight
+            //            height: parent.height - writer.sendAreaHeight
             anchors.top:parent.top
             anchors.bottom:parent.bottom
             anchors.bottomMargin: writer.sendAreaHeight
@@ -260,9 +261,14 @@ Page {
                     truncationMode: TruncationMode.Fade
                 }
             }
+
             SilicaListView {
+                property bool moveToEnd: true
+
+                //onHeightChanged
+
                 id: messageList
-                cacheBuffer : 100
+                //cacheBuffer : 100
                 property bool needToScroll: false
                 width: parent.width
                 height: parent.height - nameplate.height
@@ -271,11 +277,13 @@ Page {
 
                 onHeightChanged: {
                     if(messageList.indexAt(width/2,height+contentY) >= count - 2)
-                        {
-                                                messageList.positionViewAtEnd()
-                        }
+                    {
+                        messageList.positionViewAtEnd()
+                    }
                 }
                 onMovementStarted: {
+                    console.log("moving")
+                    touched = true
                     showDateSection()
                 }
                 onMovementEnded: {
@@ -289,11 +297,12 @@ Page {
                 Connections {
                     target: messagingModel
                     onRowsInserted: {
+                         positionAtEndTimer.start()
                         if(first == 0)
                             for(var i = 0; i < arrayIndex.length;i ++)
                                 arrayIndex[i] = arrayIndex[i] + last + 1
-                        if(messageList.atYEnd && messageList.state !== "preparing")
-                            positionAtEndTimer.start()
+                        if(messageList.atYEnd && messageList.state !== "preparing") {}
+                           // positionAtEndTimer.start()
                     }
                 }
                 topMargin:  -1 * Theme.itemSizeExtraLarge
@@ -385,14 +394,14 @@ Page {
                     if(atYBeginning &&  !messagingModel.reachedHistoryEnd) {
                         fetchOlderTimer.start()
                     }
-//                    needToScroll = indexAt(messageList.width/2,contentY + 50) > messageList.count - 8
+                    //                    needToScroll = indexAt(messageList.width/2,contentY + 50) > messageList.count - 8
 
                 }
-                delegate:  Label{
+                delegate:  /*Label{
                                 text: "Text"
-                            }
+                            }/*/
 
-                    /*MessageItem {
+                           MessageItem {
                     id: myDelegate
                     onReplyMessageClicked:    {
                         if(messagingModel.findIndexById(replied_message_index) !== -1) {
@@ -404,22 +413,22 @@ Page {
                         }/* else {
                                                                                   messagingModel.loadAndRefreshRepliedByIndex(source_message_index)
                                                                               }*/
-                    /*}
+                    }
 
-                    ListView.onAdd: AddAnimation {
+                    /*ListView.onAdd: AddAnimation {
                         target: myDelegate
-                    }
-                    RemorseItem {
+                    }*/
+                    /*RemorseItem {
                         id: remorseDelete
-                    }
+                    }*/
                     ListView.onRemove: RemoveAnimation {
                         target: myDelegate
                     }
 
-                    property alias messageEditable: editEntry.visible
-                    signal triggerEdit()
-                    onTriggerEdit: editEntry.clicked()
-                    menu: ContextMenu {
+                    //property alias messageEditable: editEntry.visible
+                    //signal triggerEdit()
+                    //onTriggerEdit: editEntry.clicked()
+                    /*menu: ContextMenu {
                         MenuItem {
                             text: qsTr("Reply")
                             visible:  ((messagingModel.chatType["type"] == TdlibState.Supergroup && !messagingModel.chatType["is_channel"]) ||
@@ -533,7 +542,7 @@ Page {
                                 showRemorseDeleteToAll()
                             }
                         }
-                    }
+                    }*/
                     function showRemorseDeleteToAll() {
                         remorseDelete.execute(myDelegate, qsTr("Deleting..."), function() {
                             messagingModel.deleteMessage(index,true) }
@@ -542,7 +551,7 @@ Page {
                     function showRemorseDelete() {
                         remorseDelete.execute(myDelegate, qsTr("Deleting..."), function() { messagingModel.deleteMessage(index) } )
                     }
-                }*/
+                }
 
                 Timer {
                     id:centerTimer
@@ -556,18 +565,27 @@ Page {
                 }
                 Timer {
                     id:fetchOlderTimer
-                    interval: 500
+                    interval: 100
                     repeat: false
                     onTriggered:{
-                      if(messageList.state == "ready")
-                        messagingModel.fetchOlder()
+                        if(messageList.state == "ready")
+                            messagingModel.fetchOlder()
                     }
                 }
                 Timer {
                     id:positionAtEndTimer
                     interval: 500
-                    repeat: false
-                    onTriggered:{} //messageList.positionViewAtEnd()
+                    repeat: true
+                    onTriggered:{
+                        if (!touched) {
+                            //console.log("Scrolling down")
+                            messageList.positionViewAtEnd()
+                        }else{
+                            //console.log("Stopped scrolling")
+                            positionAtEndTimer.stop()
+                        }
+
+                    }
                 }
 
                 Component.onCompleted: {
@@ -575,6 +593,7 @@ Page {
                 }
 
             }
+
         }
 
         function sendText(text,reply_id) {
@@ -596,5 +615,14 @@ Page {
             clearReplyArea()
         }
     }
+    /*
+    MouseArea {
+        visible : !touched
+        anchors.fill: parent
+        onClicked: {
+            console.log("toiched")
+            //touched = true
+        }
+    }*/
 }
 

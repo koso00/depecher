@@ -345,23 +345,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unmute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mark as read</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mark as unread</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telegram</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -426,10 +414,6 @@
 <context>
     <name>MessageItem</name>
     <message>
-        <source>edited</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Forwarded from</source>
         <translation type="unfinished"></translation>
     </message>
@@ -442,6 +426,10 @@
     </message>
     <message>
         <source>messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -296,8 +296,27 @@ QVariant ChatsModel::data(const QModelIndex &index, int role) const
     case DATE:
         if (m_chats[rowIndex]->last_message_.data() != nullptr) {
             char buff[20];
-            time_t timenum = (time_t) m_chats[rowIndex]->last_message_->date_;
-            strftime(buff, 20, "%Y-%m-%d %H:%M:%S", localtime(&timenum));
+            time_t date = (time_t) m_chats[rowIndex]->last_message_->date_;
+            time_t now;
+            time(&now);
+            time_t midnight = now / 86400 * 86400;
+            time_t a_week_ago = (now / 86400 * 86400) - 86400 * 7;
+
+            if (difftime(midnight,date) < 0){
+                strftime(buff, 20, "%H:%M", localtime(&date));
+            }else{
+                if (difftime(a_week_ago,date) < 0){
+                    strftime(buff, 20, "%a", localtime(&date));
+                }else {
+                    tm date_year = *gmtime(&date);
+                    tm now_year =  *gmtime(&now);
+                    if (date_year.tm_year == now_year.tm_year){
+                         strftime(buff, 20, "%d %b", localtime(&date));
+                    }else{
+                        strftime(buff, 20, "%d %b %Y", localtime(&date));
+                    }
+                }
+            }
             return buff;
         }
     case MUTE_FOR:
@@ -330,6 +349,9 @@ QVariant ChatsModel::data(const QModelIndex &index, int role) const
                 return QVariant::fromValue(tdlibQt::Enums::MessageState::Sending_Not_Read);
         }
 
+    }
+    case IS_OUTGOING: {
+        return m_chats[rowIndex]->last_message_->is_outgoing_;
     }
     case SENDING_STATE_ICON: {
         if (m_chats[rowIndex]->last_message_->sending_state_.data()) {
@@ -364,7 +386,7 @@ void ChatsModel::fetchMore(const QModelIndex &parent)
     Q_UNUSED(parent)
     fetchPending = true;
     if (rowCount(QModelIndex()) > 0)
-        tdlibJson->getChats(m_chats.last()->id_, m_chats.last()->order_, 100);
+        tdlibJson->getChats(m_chats.last()->id_, m_chats.last()->order_, 20);
     else
         tdlibJson->getChats();
 
@@ -398,6 +420,8 @@ QHash<int, QByteArray> ChatsModel::roleNames() const
     roles[CLIENT_DATA] = "client_data";
     roles[SENDING_STATE] = "sending_state";
     roles[SENDING_STATE_ICON] = "sending_state_icon";
+    roles[IS_OUTGOING] = "is_outgoing";
+
     return roles;
 }
 
@@ -553,6 +577,7 @@ void ChatsModel::updateChatReadInbox(const QJsonObject &chatReadInboxObject)
             roles.append(LAST_MESSAGE_INBOX_ID);
             roles.append(SENDING_STATE);
             roles.append(SENDING_STATE_ICON);
+            roles.append(IS_OUTGOING);
 
             emit dataChanged(index(i), index(i), roles);
             break;
@@ -571,6 +596,8 @@ void ChatsModel::updateChatReadOutbox(const QJsonObject &chatReadOutboxObject)
             roles.append(LAST_MESSAGE_OUTBOX_ID);
             roles.append(SENDING_STATE);
             roles.append(SENDING_STATE_ICON);
+            roles.append(IS_OUTGOING);
+
             emit dataChanged(index(i), index(i), roles);
             return;
         }

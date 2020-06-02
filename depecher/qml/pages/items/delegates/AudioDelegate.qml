@@ -74,7 +74,7 @@ Column{
 
                     color: pressed ? Theme.primaryColor : Theme.secondaryColor
                     font.pixelSize: Theme.fontSizeSmall
-                    text: audio_title == "" ? document_name : audio_title
+                    text: audio_title
                 }
 
                 Label {

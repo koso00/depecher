@@ -223,6 +223,9 @@ void NotificationManager::notifySummary(const qint64 timestamp, const QString &s
                                         const QString &body, const qint64 chatId,  const qint64 unreadCount)
 {
     QSharedPointer<Notification> notificationPtr = QSharedPointer<Notification>(new Notification);
+    static const QString ICON { "/usr/share/icons/hicolor/128x128/apps/depecher.png" };
+    notificationPtr->setIcon    (ICON);
+    notificationPtr->setAppIcon (ICON);
     notificationPtr->setAppName("Depecher");
     notificationPtr->setCategory("x-depecher.im");
     notificationPtr->setExpireTimeout(m_expireTimeout);
@@ -235,6 +238,8 @@ void NotificationManager::notifySummary(const qint64 timestamp, const QString &s
                                   1000 /* timestamp have secs , not msecs*/));
     notificationPtr->setSummary(summary);
     notificationPtr->setBody(body);
+    notificationPtr->setPreviewSummary(summary);
+    notificationPtr->setPreviewBody(body);
 
     QVariantList arguments;
     arguments.append(chatId);
@@ -262,6 +267,9 @@ void NotificationManager::notifyPreview(const qint64 timestamp, const QString &s
 {
 
     QSharedPointer<Notification> notificationPtr = QSharedPointer<Notification>(new Notification);
+    static const QString ICON { "/usr/share/icons/hicolor/128x128/apps/depecher.png" };
+    notificationPtr->setIcon    (ICON);
+    notificationPtr->setAppIcon (ICON);
     notificationPtr->setAppName("Depecher");
     notificationPtr->setCategory("x-depecher.im.fg");
     notificationPtr->setExpireTimeout(m_expireTimeout);
@@ -272,7 +280,9 @@ void NotificationManager::notifyPreview(const qint64 timestamp, const QString &s
     }
     notificationPtr->setTimestamp(QDateTime::fromMSecsSinceEpoch(timestamp *
                                   1000 /* timestamp have secs , not msecs*/));
+    notificationPtr->setPreviewSummary(summary);
     notificationPtr->setPreviewBody(body);
+
 //https://git.merproject.org/mer-core/lipstick/blob/master/doc/src/notifications.dox#L41
     //    notificationPtr->setPreviewSummary(summary);
     //    QVariantList arguments;

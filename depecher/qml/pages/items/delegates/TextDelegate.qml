@@ -15,7 +15,7 @@ Column {
 
     width: textItem.width
 
-
+    /*
     ConfigurationValue {
         id: fullSizeInChannels
         key:"/apps/depecher/ui/message/fullSizeInChannels"
@@ -36,7 +36,7 @@ Column {
                 width: JsUtils.getWidth()
             }
         }
-    ]
+    ]*/
 
 
 

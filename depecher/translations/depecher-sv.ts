@@ -338,31 +338,19 @@
     <name>DialogsPage</name>
     <message>
         <source>Reset dialogs</source>
-        <translation>Återställ dialoger</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Inställningar</translation>
-    </message>
-    <message>
-        <source>Unmute</source>
-        <translation>Tysta inte</translation>
-    </message>
-    <message>
-        <source>Mute</source>
-        <translation>Tysta</translation>
-    </message>
-    <message>
-        <source>Mark as read</source>
-        <translation>Markera som l??st</translation>
-    </message>
-    <message>
-        <source>Mark as unread</source>
-        <translation>Markera som ol??st</translation>
+        <translation type="unfinished">Inställningar</translation>
     </message>
     <message>
         <source>Contacts</source>
-        <translation>Kontakter</translation>
+        <translation type="unfinished">Kontakter</translation>
+    </message>
+    <message>
+        <source>Telegram</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -426,12 +414,8 @@
 <context>
     <name>MessageItem</name>
     <message>
-        <source>edited</source>
-        <translation>redigerad</translation>
-    </message>
-    <message>
         <source>Forwarded from</source>
-        <translation>Skickat från</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -443,6 +427,10 @@
     <message>
         <source>messages</source>
         <translation>meddelanden</translation>
+    </message>
+    <message>
+        <source>Deleting...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -587,7 +575,7 @@
     <name>SelectChatDialog</name>
     <message>
         <source>Select chat</source>
-        <translation>Välj chatt</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

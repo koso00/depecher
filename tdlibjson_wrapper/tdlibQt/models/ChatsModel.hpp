@@ -43,7 +43,8 @@ class ChatsModel : public QAbstractListModel
         DRAFT_MESSAGE,
         CLIENT_DATA,
         SENDING_STATE,
-        SENDING_STATE_
+        SENDING_STATE_ICON,
+        IS_OUTGOING
     };
     TdlibJsonWrapper *tdlibJson;
     void changeChatOrderOrAdd(qint64 chatId, qint64 order);

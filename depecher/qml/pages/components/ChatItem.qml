@@ -30,15 +30,7 @@ ListItem {
         text: title
         truncationMode: TruncationMode.Fade
     }
-    Label{
-        id:messageTimestamp
-        anchors.top : titleLabel.bottom
-        anchors.left : avatar.right
-        horizontalAlignment: Text.AlignRight
-        font.pixelSize: Theme.fontSizeSmall
-        color: Theme.secondaryColor
-        text: date
-    }
+
      /*Column{
         //title,date,text
         //icon-m-speaker-mute

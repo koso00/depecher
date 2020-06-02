@@ -338,31 +338,19 @@
     <name>DialogsPage</name>
     <message>
         <source>Reset dialogs</source>
-        <translation>重置对话</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>设置</translation>
-    </message>
-    <message>
-        <source>Unmute</source>
-        <translation>取消静音</translation>
-    </message>
-    <message>
-        <source>Mute</source>
-        <translation>静音</translation>
-    </message>
-    <message>
-        <source>Mark as read</source>
-        <translation>标记为已读</translation>
-    </message>
-    <message>
-        <source>Mark as unread</source>
-        <translation>标记为未读</translation>
+        <translation type="unfinished">设置</translation>
     </message>
     <message>
         <source>Contacts</source>
-        <translation>联系人</translation>
+        <translation type="unfinished">联系人</translation>
+    </message>
+    <message>
+        <source>Telegram</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -426,12 +414,8 @@
 <context>
     <name>MessageItem</name>
     <message>
-        <source>edited</source>
-        <translation>已编辑</translation>
-    </message>
-    <message>
         <source>Forwarded from</source>
-        <translation>转发自</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -443,6 +427,10 @@
     <message>
         <source>messages</source>
         <translation>消息</translation>
+    </message>
+    <message>
+        <source>Deleting...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -587,7 +575,7 @@
     <name>SelectChatDialog</name>
     <message>
         <source>Select chat</source>
-        <translation>选择对话</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

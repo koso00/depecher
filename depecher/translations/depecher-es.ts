@@ -338,31 +338,19 @@
     <name>DialogsPage</name>
     <message>
         <source>Reset dialogs</source>
-        <translation>Restablecer diálogos</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Ajustes</translation>
-    </message>
-    <message>
-        <source>Unmute</source>
-        <translation>Dejar de silenciar</translation>
-    </message>
-    <message>
-        <source>Mute</source>
-        <translation>Silenciar</translation>
-    </message>
-    <message>
-        <source>Mark as read</source>
-        <translation>Marcar como leído</translation>
-    </message>
-    <message>
-        <source>Mark as unread</source>
-        <translation>Marcar como no leído</translation>
+        <translation type="unfinished">Ajustes</translation>
     </message>
     <message>
         <source>Contacts</source>
-        <translation>Contactos</translation>
+        <translation type="unfinished">Contactos</translation>
+    </message>
+    <message>
+        <source>Telegram</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -426,12 +414,8 @@
 <context>
     <name>MessageItem</name>
     <message>
-        <source>edited</source>
-        <translation>editado</translation>
-    </message>
-    <message>
         <source>Forwarded from</source>
-        <translation>Reenviado desde</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -443,6 +427,10 @@
     <message>
         <source>messages</source>
         <translation>mensajes</translation>
+    </message>
+    <message>
+        <source>Deleting...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -587,7 +575,7 @@
     <name>SelectChatDialog</name>
     <message>
         <source>Select chat</source>
-        <translation>Seleccionar chat</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

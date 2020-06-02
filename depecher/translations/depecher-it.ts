@@ -338,30 +338,18 @@
     <name>DialogsPage</name>
     <message>
         <source>Reset dialogs</source>
-        <translation>Ricarica conversazioni</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Impostazioni</translation>
-    </message>
-    <message>
-        <source>Unmute</source>
-        <translation>Suona</translation>
-    </message>
-    <message>
-        <source>Mute</source>
-        <translation>Silenzia</translation>
-    </message>
-    <message>
-        <source>Mark as read</source>
-        <translation>Letto</translation>
-    </message>
-    <message>
-        <source>Mark as unread</source>
-        <translation>Non letto</translation>
+        <translation type="unfinished">Impostazioni</translation>
     </message>
     <message>
         <source>Contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telegram</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -426,12 +414,8 @@
 <context>
     <name>MessageItem</name>
     <message>
-        <source>edited</source>
-        <translation>modificato</translation>
-    </message>
-    <message>
         <source>Forwarded from</source>
-        <translation>Inoltrato da</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -443,6 +427,10 @@
     <message>
         <source>messages</source>
         <translation>messaggi</translation>
+    </message>
+    <message>
+        <source>Deleting...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -587,7 +575,7 @@
     <name>SelectChatDialog</name>
     <message>
         <source>Select chat</source>
-        <translation>Seleziona chat</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
