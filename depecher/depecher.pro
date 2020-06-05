@@ -99,7 +99,7 @@ SOURCES += \
 OTHER_FILES += qml/app.qml \
     qml/cover/CoverPage.qml \
     qml/pages/*.qml \
-qml/pages/items/delegates/*.qml \
+    qml/pages/items/delegates/*.qml \
     translations/*.ts
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256

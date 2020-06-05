@@ -1,10 +1,13 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
-Label {
+import "../../components/"
+
+Text {
     property string content
-    textFormat: Text.RichText
-    text: "<style>a:link { color: " + Theme.highlightColor + "; }</style>" +
-             content
+    //textFormat: Text.RichText
+
+
+    text: content
     color: pressed ? Theme.secondaryColor : Theme.primaryColor
     linkColor: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
     onLinkActivated: {

@@ -201,7 +201,6 @@ Column{
                     Rectangle {
                         height : parent.height
                         width: parent.width
-                        radius : 50
                         anchors.fill: parent
                         visible: !file_downloading_completed || progress.visible
                         opacity: 0.5

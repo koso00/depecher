@@ -290,7 +290,11 @@ ListItem {
                         }*/
 
                         switch(currentMessageType){
-                        case MessagingModel.TEXT: return "delegates/TextDelegate.qml";
+                        case MessagingModel.TEXT:
+                            if (cachedText[id] == undefined){
+                                myWorker.sendMessage({ text : rich_text , id : id,type : MessagingModel.TEXT})
+                            }
+                            return "delegates/TextDelegate.qml";
                         case MessagingModel.PHOTO: return "delegates/ImageDelegate.qml";
                         case MessagingModel.VIDEO: return "delegates/VideoDelegate.qml";
                         case MessagingModel.VIDEO_NOTE : return "delegates/VideoNoteDelegate.qml";

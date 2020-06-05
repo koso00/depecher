@@ -44,7 +44,6 @@ Column {
         font.pixelSize: 40
         id: textItem
         width: messageListItem.width * 2 / 3 - Theme.horizontalPageMargin * 4
-        content:  rich_text
+        content:  cachedText[id] || rich_text
      }
-
 }

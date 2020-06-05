@@ -1,6 +1,5 @@
 #ifndef CHATSMODEL_HPP
 #define CHATSMODEL_HPP
-
 #include <QAbstractListModel>
 #include <QJsonObject>
 #include <memory>

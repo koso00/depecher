@@ -18,7 +18,7 @@ Page {
     property FilterChatMembersModel filterChatMembersModel: null
     property bool infoPageLoaded: false
     property bool touched: false
-
+    property variant cachedText: ({})
     onStatusChanged: {
         if (!infoPageLoaded && status == PageStatus.Active) {
             infoPageLoaded = true
@@ -111,6 +111,7 @@ Page {
             writer.replyMessageText = forwardMessages.messages.length + " " + qsTr("messages")
         }
         c_telegramWrapper.openChat(messagingModel.peerId)
+
     }
     Component.onDestruction: {
         c_telegramWrapper.closeChat(messagingModel.peerId)
@@ -275,6 +276,17 @@ Page {
                 signal showDateSection()
                 signal hideDateSection()
 
+                WorkerScript {
+
+                    id: myWorker
+                    source: "/usr/share/depecher/qml/js/emojiParser.mjs"
+
+                    onMessage: {
+                        cachedText[messageObject.id] = messageObject.text
+                        cachedText = cachedText;
+                    }
+                }
+
                 onHeightChanged: {
                     if(messageList.indexAt(width/2,height+contentY) >= count - 2)
                     {
@@ -397,160 +409,156 @@ Page {
                     //                    needToScroll = indexAt(messageList.width/2,contentY + 50) > messageList.count - 8
 
                 }
-                delegate:  /*Label{
-                                text: "Text"
-                            }/*/
+                delegate: MessageItem {
+                                id: myDelegate
+                                onReplyMessageClicked:    {
+                                    if(messagingModel.findIndexById(replied_message_index) !== -1) {
+                                        arrayIndex.push(source_message_index)
+                                        writer.returnButtonEnabled = true
 
-                           MessageItem {
-                    id: myDelegate
-                    onReplyMessageClicked:    {
-                        if(messagingModel.findIndexById(replied_message_index) !== -1) {
-                            arrayIndex.push(source_message_index)
-                            writer.returnButtonEnabled = true
+                                        messageList.positionViewAtIndex(messagingModel.findIndexById(replied_message_index)+ 1,ListView.Center)
+                                        messageList.currentIndex =messagingModel.findIndexById(replied_message_index)+ 1
+                                    }/* else {
+                                                                                              messagingModel.loadAndRefreshRepliedByIndex(source_message_index)
+                                                                                          }*/
+                                }
 
-                            messageList.positionViewAtIndex(messagingModel.findIndexById(replied_message_index)+ 1,ListView.Center)
-                            messageList.currentIndex =messagingModel.findIndexById(replied_message_index)+ 1
-                        }/* else {
-                                                                                  messagingModel.loadAndRefreshRepliedByIndex(source_message_index)
-                                                                              }*/
-                    }
+                                /*ListView.onAdd: AddAnimation {
+                                    target: myDelegate
+                                }*/
+                                /*RemorseItem {
+                                    id: remorseDelete
+                                }*/
+                                ListView.onRemove: RemoveAnimation {
+                                    target: myDelegate
+                                }
 
-                    /*ListView.onAdd: AddAnimation {
-                        target: myDelegate
-                    }*/
-                    /*RemorseItem {
-                        id: remorseDelete
-                    }*/
-                    ListView.onRemove: RemoveAnimation {
-                        target: myDelegate
-                    }
-
-                    //property alias messageEditable: editEntry.visible
-                    //signal triggerEdit()
-                    //onTriggerEdit: editEntry.clicked()
-                    /*menu: ContextMenu {
-                        MenuItem {
-                            text: qsTr("Reply")
-                            visible:  ((messagingModel.chatType["type"] == TdlibState.Supergroup && !messagingModel.chatType["is_channel"]) ||
-                                        messagingModel.chatType["type"] == TdlibState.BasicGroup ||
-                                        messagingModel.chatType["type"] == TdlibState.Private)
-                            onClicked: {
-                                writer.reply_id = id
-                                writer.replyMessageAuthor = author
-                                writer.replyMessageText = replyMessageContent()
-                            }
-                            function replyMessageContent() {
-                                if(message_type == MessagingModel.TEXT) {
-                                    return content
-                                }
-                                else if(message_type == MessagingModel.PHOTO) {
-                                    return qsTr("Photo")
-                                }
-                                else if(message_type == MessagingModel.STICKER) {
-                                    return qsTr("Sticker")
-                                }
-                                else if(message_type == MessagingModel.DOCUMENT) {
-                                    return qsTr("Document")
-                                }
-                                else if(message_type == MessagingModel.ANIMATION) {
-                                    return qsTr("Animation")
-                                }
-                                else if(message_type == MessagingModel.CONTACT) {
-                                    return qsTr("Contact")
-                                }
-                                return qsTr("Message");
-                            }
-                        }
-                        MenuItem {
-                        id: editEntry
-                        text:qsTr("Edit")
-                        visible: can_be_edited && (message_type == MessagingModel.TEXT
-                                                || message_type == MessagingModel.PHOTO
-                                                || message_type == MessagingModel.VIDEO
-                                                || message_type == MessagingModel.DOCUMENT
-                                                || message_type == MessagingModel.ANIMATION
-                                                || message_type == MessagingModel.VOICE
-                                                || message_type == MessagingModel.AUDIO)
+                                //property alias messageEditable: editEntry.visible
+                                //signal triggerEdit()
+                                //onTriggerEdit: editEntry.clicked()
+                                /*menu: ContextMenu {
+                                    MenuItem {
+                                        text: qsTr("Reply")
+                                        visible:  ((messagingModel.chatType["type"] == TdlibState.Supergroup && !messagingModel.chatType["is_channel"]) ||
+                                                    messagingModel.chatType["type"] == TdlibState.BasicGroup ||
+                                                    messagingModel.chatType["type"] == TdlibState.Private)
+                                        onClicked: {
+                                            writer.reply_id = id
+                                            writer.replyMessageAuthor = author
+                                            writer.replyMessageText = replyMessageContent()
+                                        }
+                                        function replyMessageContent() {
+                                            if(message_type == MessagingModel.TEXT) {
+                                                return content
+                                            }
+                                            else if(message_type == MessagingModel.PHOTO) {
+                                                return qsTr("Photo")
+                                            }
+                                            else if(message_type == MessagingModel.STICKER) {
+                                                return qsTr("Sticker")
+                                            }
+                                            else if(message_type == MessagingModel.DOCUMENT) {
+                                                return qsTr("Document")
+                                            }
+                                            else if(message_type == MessagingModel.ANIMATION) {
+                                                return qsTr("Animation")
+                                            }
+                                            else if(message_type == MessagingModel.CONTACT) {
+                                                return qsTr("Contact")
+                                            }
+                                            return qsTr("Message");
+                                        }
+                                    }
+                                    MenuItem {
+                                    id: editEntry
+                                    text:qsTr("Edit")
+                                    visible: can_be_edited && (message_type == MessagingModel.TEXT
+                                                            || message_type == MessagingModel.PHOTO
+                                                            || message_type == MessagingModel.VIDEO
+                                                            || message_type == MessagingModel.DOCUMENT
+                                                            || message_type == MessagingModel.ANIMATION
+                                                            || message_type == MessagingModel.VOICE
+                                                            || message_type == MessagingModel.AUDIO)
 
 
 
-                        onClicked: {
-                            if(message_type == MessagingModel.TEXT)
-                            writer.state = "editText"
-                            else
-                            writer.state = "editCaption"
+                                    onClicked: {
+                                        if(message_type == MessagingModel.TEXT)
+                                        writer.state = "editText"
+                                        else
+                                        writer.state = "editCaption"
 
-                            writer.edit_message_id = id
-                            writer.replyMessageText = replyMessageContent()
-                            writer.text = message_type == MessagingModel.TEXT ? content : file_caption
-                            writer.textArea.focus = true
-                            writer.textArea.cursorPosition = writer.text.length
-                            function replyMessageContent() {
-                                if(message_type == MessagingModel.TEXT) {
-                                    return content
-                                }
-                                else if(message_type == MessagingModel.PHOTO) {
-                                    return qsTr("Photo")
-                                }
-                                else if(message_type == MessagingModel.STICKER) {
-                                    return qsTr("Sticker")
-                                }
-                                else if(message_type == MessagingModel.DOCUMENT) {
-                                    return qsTr("Document")
-                                }
-                                else if(message_type == MessagingModel.ANIMATION) {
-                                    return qsTr("Animation")
-                                }
-                                else if(message_type == MessagingModel.CONTACT) {
-                                    return qsTr("Contact")
-                                }
-                                return qsTr("Message");
-                            }
+                                        writer.edit_message_id = id
+                                        writer.replyMessageText = replyMessageContent()
+                                        writer.text = message_type == MessagingModel.TEXT ? content : file_caption
+                                        writer.textArea.focus = true
+                                        writer.textArea.cursorPosition = writer.text.length
+                                        function replyMessageContent() {
+                                            if(message_type == MessagingModel.TEXT) {
+                                                return content
+                                            }
+                                            else if(message_type == MessagingModel.PHOTO) {
+                                                return qsTr("Photo")
+                                            }
+                                            else if(message_type == MessagingModel.STICKER) {
+                                                return qsTr("Sticker")
+                                            }
+                                            else if(message_type == MessagingModel.DOCUMENT) {
+                                                return qsTr("Document")
+                                            }
+                                            else if(message_type == MessagingModel.ANIMATION) {
+                                                return qsTr("Animation")
+                                            }
+                                            else if(message_type == MessagingModel.CONTACT) {
+                                                return qsTr("Contact")
+                                            }
+                                            return qsTr("Message");
+                                        }
 
-                        }
-                        }
-                        MenuItem {
-                            text: qsTr("Forward")
-                            visible: can_be_forwarded && !writer.textArea.activeFocus
-                            onClicked: {
-                                pageStack.push("SelectChatDialog.qml",{"from_chat_id": chatId,
-                                                    "messages": [id]})
-                            }
-                        }
-                        MenuItem {
-                            text:message_type == MessagingModel.TEXT || file_caption ? qsTr("Copy text") : qsTr("Copy path")
-                            onClicked: {
-                                if(message_type == MessagingModel.TEXT)
-                                    Clipboard.text = content
-                                else if (file_caption)
-                                    Clipboard.text = file_caption
-                                else
-                                    Clipboard.text = content
-                            }
-                        }
-                        MenuItem {
-                            text: qsTr("Delete Message")
-                            visible: can_be_deleted_only_for_yourself && !writer.textArea.activeFocus ? can_be_deleted_only_for_yourself : false
-                            onClicked: {
-                                showRemorseDelete()
-                            }
-                        }
-                        MenuItem {
-                            text: qsTr("Delete for everyone")
-                            visible: can_be_deleted_for_all_users && !writer.textArea.activeFocus ? can_be_deleted_for_all_users : false
-                            onClicked: {
-                                showRemorseDeleteToAll()
-                            }
-                        }
-                    }*/
-                    function showRemorseDeleteToAll() {
-                        remorseDelete.execute(myDelegate, qsTr("Deleting..."), function() {
-                            messagingModel.deleteMessage(index,true) }
-                        )
-                    }
-                    function showRemorseDelete() {
-                        remorseDelete.execute(myDelegate, qsTr("Deleting..."), function() { messagingModel.deleteMessage(index) } )
-                    }
+                                    }
+                                    }
+                                    MenuItem {
+                                        text: qsTr("Forward")
+                                        visible: can_be_forwarded && !writer.textArea.activeFocus
+                                        onClicked: {
+                                            pageStack.push("SelectChatDialog.qml",{"from_chat_id": chatId,
+                                                                "messages": [id]})
+                                        }
+                                    }
+                                    MenuItem {
+                                        text:message_type == MessagingModel.TEXT || file_caption ? qsTr("Copy text") : qsTr("Copy path")
+                                        onClicked: {
+                                            if(message_type == MessagingModel.TEXT)
+                                                Clipboard.text = content
+                                            else if (file_caption)
+                                                Clipboard.text = file_caption
+                                            else
+                                                Clipboard.text = content
+                                        }
+                                    }
+                                    MenuItem {
+                                        text: qsTr("Delete Message")
+                                        visible: can_be_deleted_only_for_yourself && !writer.textArea.activeFocus ? can_be_deleted_only_for_yourself : false
+                                        onClicked: {
+                                            showRemorseDelete()
+                                        }
+                                    }
+                                    MenuItem {
+                                        text: qsTr("Delete for everyone")
+                                        visible: can_be_deleted_for_all_users && !writer.textArea.activeFocus ? can_be_deleted_for_all_users : false
+                                        onClicked: {
+                                            showRemorseDeleteToAll()
+                                        }
+                                    }
+                                }*/
+                                function showRemorseDeleteToAll() {
+                                    remorseDelete.execute(myDelegate, qsTr("Deleting..."), function() {
+                                        messagingModel.deleteMessage(index,true) }
+                                    )
+                                }
+                                function showRemorseDelete() {
+                                    remorseDelete.execute(myDelegate, qsTr("Deleting..."), function() { messagingModel.deleteMessage(index) } )
+                                }
                 }
 
                 Timer {

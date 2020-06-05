@@ -338,6 +338,10 @@
 <context>
     <name>DialogsPage</name>
     <message>
+        <source>Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Reset dialogs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -347,10 +351,6 @@
     </message>
     <message>
         <source>Contacts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Telegram</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

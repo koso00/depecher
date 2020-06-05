@@ -14,6 +14,16 @@ Page {
     //for search in pageStack
     property bool __chat_page: true
     property string _opened_chat_id: ""
+    property string lastLongPressId : ""
+    property bool selectMode : false
+    property variant selection : []
+    property int selectionCounter : 0
+    property variant selectionItems : []
+    property bool selectModeInitialized : false
+    property int selectModeIndex: 0
+    property variant cachedTitles : ({})
+    property variant cachedLastMessage : ({})
+
     Connections {
         target: c_telegramWrapper
         onErrorReceivedMap: {
@@ -27,15 +37,37 @@ Page {
                 pageStack.replace(Qt.resolvedUrl("AuthorizeDialog.qml"),{},PageStackAction.Immediate)
 
     }
+    FontLoader { id: emoji; name : "SailfishEmoji"; source: "/usr/share/depecher/qml/assets/SailfishEmoji.otf" }
 
     SilicaListView {
+        WorkerScript {
+            id: myWorker
+            source: "/usr/share/depecher/qml/js/emojiParser.mjs"
+
+            onMessage: {
+                switch(messageObject.type){
+                case "title":
+                        cachedTitles[messageObject.id] = messageObject.text
+                        cachedTitles = cachedTitles;
+                        break;
+                case "last_message":
+                        cachedLastMessage[messageObject.id] = messageObject.text
+                        cachedLastMessage = cachedLastMessage;
+                        break;
+                }
+
+            }
+        }
+
         quickScroll: true;
         anchors.fill: parent;
+
         header: PageHeader{
+            visible : !selectMode
             title:qsTr("Telegram")
         }
         PullDownMenu {
-
+            visible : !selectMode
             MenuItem {
                 text:qsTr("Reset dialogs")
                 onClicked: chatsModel.reset()
@@ -52,20 +84,92 @@ Page {
         model:   ChatsModel {
             id:chatsModel
         }
+
         delegate:
             ListItem {
+            property bool selected : (selection.indexOf(id) != -1)
+            property string emoji_title : title
+
             id: delegateChat;
+
+            Component.onCompleted: {
+                if (cachedTitles[id] == undefined){
+                    myWorker.sendMessage({ text : title , id : id,type : "title"})
+                }
+                if (cachedLastMessage[id] == undefined){
+                    myWorker.sendMessage({ text : last_message , id : id,type : "last_message"})
+                }
+            }
+            onPressAndHold: {
+                if (!selectMode){
+                    selected = true
+                    selectMode = true
+                    selectModeBox.state = "shown"
+                    selection.push(id)
+                    selectionItems.push(delegateChat)
+                    selectionCounter = selection.length
+                }
+            }
+
+            onReleased: {
+                if (!selectMode){
+                    var page = pageStack.find(function (page) {
+                        return page.__messaging_page !== undefined
+                    });
+                    if(_opened_chat_id !== id)
+                    {
+                        _opened_chat_id = id
+                        if(is_marked_unread)
+                            chatsModel.markAsUnread(id,false)
+                        pageStack.pushAttached("MessagingPage.qml",{chatId:id})
+                    }
+                    pageStack.navigateForward()
+                }else{
+
+                    if (selected){
+                        if (!selectModeInitialized){
+                            selectModeInitialized = true
+                            return
+                        }
+
+                        selected = false
+                        selection.splice(selection.indexOf(id),1);
+                        selectionItems.splice(selectionItems.indexOf(delegateChat),1);
+                        selectionCounter = selection.length
+                    }else{
+                        selected = true
+                        selection.push(id)
+                        selectionItems.push(delegateChat)
+                        selectionCounter = selection.length
+
+                    }
+                    if (selection.length == 0){
+                        quitSelectionMode()
+                    }
+                }
+            }
+            contentHeight : 150 + Theme.paddingLarge
             width : parent.width
-            height : 150 + Theme.paddingLarge
             anchors {
                 leftMargin:  Theme.paddingLarge
-                bottomMargin: Theme.paddingLarge
+                //bottomMargin: Theme.paddingLarge
             }
+            Rectangle {
+                visible : selected
+                anchors.top : parent.top
+                anchors.left : parent.left
+                height :150 + Theme.paddingLarge
+                width : parent.width
+                color :Theme.highlightBackgroundColor
+                opacity : 0.3
+            }
+
             Rectangle {
                 width:150
                 height: 150
                 id: fallbackitem
                 anchors.top : parent.top
+                anchors.topMargin: Theme.paddingMedium
                 anchors.leftMargin:  Theme.paddingLarge
                 anchors.left : parent.left
                 color: Theme.highlightBackgroundColor
@@ -85,6 +189,7 @@ Page {
                 width:150
                 height: 150
                 visible: photo ? true : false
+                anchors.topMargin: Theme.paddingMedium
                 anchors.top : parent.top
                 anchors.left : parent.left
                 anchors.leftMargin:  Theme.paddingLarge
@@ -109,17 +214,33 @@ Page {
                 }*/
             }
 
+            Image {
+                visible : selected
+                source:  "image://theme/icon-s-accept?fffff"
+                width: implicitWidth
+                fillMode: Image.PreserveAspectFit
+                asynchronous : true
+
+                anchors {
+                    bottom : fallbackitem.bottom
+                    right : fallbackitem.right
+                }
+            }
             Label {
+                property string emoji_ : title
                 width : parent.width - (topRightInfo.width + Theme.paddingLarge * 4 + 150)
                 id: titleLabel
+
+                textFormat: Text.RichText
                 anchors {
                     top : parent.top
                     left :fallbackitem.right
                     leftMargin:  Theme.paddingLarge
                 }
                 font.pixelSize: 50
-                text : title
+                text : cachedTitles[id] || title
             }
+
             Image {
                 anchors.top : parent.top
                 anchors.left : titleLabel.right
@@ -218,6 +339,8 @@ Page {
                     fillMode: Image.PreserveAspectFit
                     asynchronous : true
                 }
+
+
                 /*
                 Image {
                     id: iconSponsored
@@ -247,7 +370,7 @@ Page {
                 }
                 Label {
                     //width:lastMessageAuthor.width == 0 ?parent.width - mentions.width  : parent.width  - lastMessageAuthor.width - mentions.width  - parent.spacing
-                    text:action ?  action : last_message ? last_message : ""
+                    text: action ?  action : last_message ? cachedLastMessage[id] || last_message : ""
                     font.pixelSize: Theme.fontSizeExtraSmall
                     maximumLineCount: 1
                     truncationMode:TruncationMode.Fade
@@ -284,19 +407,7 @@ Page {
                 }
             }*/
 
-            onClicked:{
-                var page = pageStack.find(function (page) {
-                    return page.__messaging_page !== undefined
-                });
-                if(_opened_chat_id !== id)
-                {
-                    _opened_chat_id = id
-                    if(is_marked_unread)
-                        chatsModel.markAsUnread(id,false)
-                    pageStack.pushAttached("MessagingPage.qml",{chatId:id})
-                }
-                pageStack.navigateForward()
-            }
+
         }/*ChatItem {
                 id: chatDelegate
                 anchors.top : sibling.bottom
@@ -314,8 +425,104 @@ Page {
         VerticalScrollDecorator { flickable: parent; }
     }
 
+    Rectangle {
+        id : selectModeBox
+        height : 170
+        width: parent.width
+        //visible : selectMode
+        anchors {
+            top : parent.top
+            left : parent.left
+            right : parent.right
+        }
+        color : Theme.secondaryHighlightColor
+        opacity : 0.9
+        state : "hidden"
+
+        states: [
+           State {
+               name: "hidden"
+               PropertyChanges {
+                   target: selectModeBox
+                   opacity : 0
+               }
+           }, State {
+               name: "shown"
+               PropertyChanges {
+                   target: selectModeBox
+                   opacity : 0.9
+               }
+           }
+       ]
+        transitions: [
+            Transition {
+                //PropertyAnimation { easing.type: Easing.InCubic; properties: "opacity"; duration: 200 }
+            }
+        ]
+    }
+    Item {
+        height : 170
+        width: implicitWidth
+        visible : selectMode
+        anchors {
+            top : parent.top
+            left : parent.left
+            right : parent.right
+        }
+
+        IconButton {
+            id : closeButton
+            anchors.verticalCenter: parent.verticalCenter
+            icon.source: "image://theme/icon-m-cancel?#000000"
+            onClicked: quitSelectionMode()
+        }
+
+        Label {
+            anchors.verticalCenter: parent.verticalCenter
+            text : selectionCounter
+            color : "#000000"
+            font.pixelSize: 80
+            anchors {
+                verticalCenter: parent.verticalCenter
+                left : closeButton.right
+                leftMargin:  (150 - closeButton.width) + Theme.paddingLarge * 2
+            }
+        }
+    }
+
+    Row {
+        height : 170
+        width : implicitWidth
+        visible : selectMode
+        spacing : Theme.paddingMedium
+        anchors {
+            top : parent.top
+            right : parent.right
+        }
+
+        IconButton {
+            anchors.verticalCenter: parent.verticalCenter
+            icon.source: "image://theme/icon-m-speaker-mute?#000000"
+        }
+        IconButton {
+            anchors.verticalCenter: parent.verticalCenter
+            icon.source: "image://theme/icon-m-delete?#000000"
+        }
+    }
+
+    function quitSelectionMode() {
+        selectModeInitialized = false
+        selection = []
+        selectModeBox.state = "hidden"
+        selectMode = false
+        selectModeIndex = 0
+        for (selectModeIndex = 0; selectModeIndex < selectionItems.length; selectModeIndex++) {
+          selectionItems[selectModeIndex].selected = false
+        }
+    }
+
 }
 
 
-
+//
 

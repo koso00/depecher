@@ -15,3 +15,7 @@ app.depends = lib
 
 # build the project sequentially as listed in SUBDIRS !
 CONFIG += ordered
+
+DISTFILES += \
+    depecher/qml/js/emojiParser.js \
+    depecher/qml/pages/components/EmojiText.qml
