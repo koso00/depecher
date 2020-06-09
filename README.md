@@ -2,11 +2,6 @@
 
 Depecher - telegram client for Sailfish OS based on [tdlib library](https://github.com/blacksailer/td/tree/cmake)
 
-
-Features:
-
-Depecher - Another Telegram client for Sailfish OS based on tdlib.
-
 Features:
 - Send/View/Delete messages
 - View photos
@@ -15,7 +10,13 @@ Features:
 - Receive notifications
 - 2FA authorization enabled
 
-
+## TODO
+- [x] smooth scrolling
+- [x] emoji support (WIP)
+- [x] chat selection (WIP)
+- [ ] fix voice notes bug for ios users
+- [ ] update tdlib
+- [ ] enable call and animated stickers
 
 #### Want to contribute?
 
@@ -37,7 +38,7 @@ sb2 -m sdk-install -R -t SailfishOS-3.2.1.20-armv7hl
     
 ```
 Add the tdlibjson repo
-``'
+```
 zypper ar http://repo.merproject.org/obs/home:/blacksailer:/branches:/home:/blacksailer/sailfish_latest_armv7hl/ tdlibsjon 
     
 ```
